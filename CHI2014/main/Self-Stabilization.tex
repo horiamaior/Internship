@@ -1,0 +1,70 @@
+
+\documentclass{../main/sigchi}
+
+%=======================================
+%	Packages
+%=======================================
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{subfiles}
+\usepackage{comment}
+
+%=======================================
+\begin{document}
+
+
+\bibliographystyle{acm-sigchi}%Choose a bibliograhpic style
+
+\title{The Internet of Things - a Self Adaptive System}
+%\subtitle{Subtitle?}
+
+%=======================================
+%	Authors
+%=======================================
+\numberofauthors{2}
+\author{
+%% Horia Maior
+\alignauthor Horia A. Maior\\
+\affaddr{Mixed Reality Lab} \\
+\affaddr{University of Nottingham} \\
+\email{psxhama@nott.ac.uk}
+%% Shirisha Rao
+\alignauthor Shrisha Rao\\
+\affaddr{IIIT-B} \\
+\affaddr{International Institute of Technology Bangalore} \\
+\email{Shirisha@iiitb.ac.in}
+}
+
+\date{08 January 2014}
+
+
+\maketitle
+
+\subfile{../tex/abstract}
+
+%=======================================
+%	Terms / Catagory / etc
+%=======================================
+% A category with the (minimum) three required fields
+%\category{}{Internet of Things, Distributed systems}{Self-Stabilization}
+
+%\terms{Evaluation Methods}
+
+\keywords{Internet of Things, Distributed Systems, Self-Stabilization, Self Adaptive System}
+
+%=======================================
+%	Include Sections
+%=======================================
+\subfile{../tex/introduction}
+\subfile{../tex/RelatedWork}
+\subfile{../tex/ExperimentDesign}
+\subfile{../tex/Results}
+\subfile{../tex/Discussion}
+\subfile{../tex/Conclusion}
+
+\bibliography{../../References}
+%=======================================
+%	End Document
+%=======================================
+\balancecolumns
+\end{document}
