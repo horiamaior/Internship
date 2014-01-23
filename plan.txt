@@ -1,0 +1,14 @@
+I Basic theory
+	1 System model
+	 abstraction of a real system ... capturing the property of the system 
+	 question : what are the relevant properties of the system (component ) properties
+	 things that communicate 
+	 local computing connection
+	 
+	 
+	2 Algorithms
+	3 Math results (proofs of correctness and performance analysis)
+	
+II Application
+	1 Simulation with real data
+	2 (probably not) Experiments

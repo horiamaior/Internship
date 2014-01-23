@@ -1,0 +1,99 @@
+\documentclass[letterpaper, 10 pt, conference]{../main/ieeeconf}
+
+%\documentclass[a4paper, 10pt, conference]{ieeeconf}      % Use this line for a4 paper
+%\documentclass{../main/sigchi}
+%\documentclass[11pt]{article}
+%=======================================
+%	Packages
+%=======================================
+\IEEEoverridecommandlockouts
+\overrideIEEEmargins
+% The following packages can be found on http:\\www.ctan.org
+%\usepackage{graphics} % for pdf, bitmapped graphics files
+%\usepackage{epsfig} % for postscript graphics files
+%\usepackage{mathptmx} % assumes new font selection scheme installed
+%\usepackage{times} % assumes new font selection scheme installed
+%\usepackage{amsmath} % assumes amsmath package installed
+%\usepackage{amssymb}  % assumes amsmath package installed
+
+
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{subfiles}
+\usepackage{comment}
+%=======================================
+\title{From The Internet of Things to Self Internet of Things}
+%\subtitle{Subtitle?}
+
+\author{Horia A. Maior$^{1}$ and Shrisha Rao$^{2}$% <-this % stops a space
+\thanks{*This work was supported by IIIT-Bangalore and University of Nottingham}% <-this % stops a space
+\thanks{$^{1}$Horia A. Maior is with the Mixed Reality Lab (MRL), Computer Science,
+        University of Nottingham, United Kingdom
+        {\tt\small psxhama@nottingham.ac.uk}}%
+\thanks{$^{2}$Shrisha Rao is with Department of Computer Science,
+        Bangalore, India
+        {\tt\small Shirisha@iiitb.ac.in}}%
+}
+
+
+%=======================================
+%	Authors
+%=======================================
+%\numberofauthors{2}
+%\author{
+%% Horia Maior
+%\alignauthor Horia A. Maior\\
+%\affaddr{Mixed Reality Lab} \\
+%\affaddr{University of Nottingham} \\
+%\email{psxhama@nott.ac.uk}
+%% Shirisha Rao
+%\alignauthor Shrisha Rao\\
+%\affaddr{IIIT-B} \\
+%\affaddr{International Institute of Technology Bangalore} \\
+%\email{Shirisha@iiitb.ac.in}
+%}
+
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+
+
+%\bibliographystyle{acm-sigchi}%Choose a bibliograhpic style
+
+
+\date{08 January 2014}
+
+\subfile{../tex/abstract}
+
+%=======================================
+%	Terms / Catagory / etc
+%=======================================
+% A category with the (minimum) three required fields
+%\category{}{Internet of Things, Distributed systems}{Self-Stabilization}
+
+%\terms{Evaluation Methods}
+
+\keywords{Internet of Things, Distributed Systems, Self-Stabilization, Self Adaptive System}
+
+%=======================================
+%	Include Sections
+%=======================================
+\subfile{../tex/introduction}
+hi \cite{back2001model}
+hiii \cite{baddeley1992working}
+\subfile{../tex/RelatedWork}
+\subfile{../tex/Discussion}
+\subfile{../tex/Conclusion}
+\bibliographystyle{IEEEtran}
+%\bibliographystyle{abbrv}
+\bibliography{../../References}
+
+
+%=======================================
+%	End Document
+%=======================================
+%\balancecolumns
+\end{document}
