@@ -1,0 +1,25 @@
+\documentclass[../main/Self-Stabilization.tex]{subfiles}
+\begin{document}
+
+\section{Problem Statement}
+In the previous section we described the IoT from various points of view and we discussed the applications such IoT within many areas of research. We also stated our interest in applying the IoT mentioning the approach that is need in our research. In this section we will describe an abstract model of IoT from a resource-constrained point of view, stating the problem we address. In the further sections, we will try solving the problem in hand, and provide a theoretical approach to it.
+
+The problem in hand includes some sort of IoT within a resource-constrained system. We are particularly interested in energy consumption, and the use of IoT to help achieve energy efficient systems. This implies that the objects of the such a system are consumers of energy, and by exchanging information between objects, we can achieve more energy efficient systems. This can be explained best with an example. Imagine a smart house where your smart toaster communicates to all other smart objects in your home that he wants to consume power at 7 am. If the power budget would be limited, all other objects would consider the toaster schedule and will act accordingly. We already pointed out that the naive approach of having a centralized system where all objects are controlled in some way by a central controller or master node would have many limitations. We decided to go beyond this approach and represent the IoT as a distributed system, where each object in the system govern its own actions.
+
+Let $G$ represent the IoT system. $G$ contains a network of all objects from the IoT system, but also some sort of communication with `the environment'. To further explain the system, we need to decide what properties an object has and what properties and what exactly is such an `environment'. Every object in the system must be networked in such a way that is connected to all other objects (we will make abstraction of how they are physically networked). It is also assumed that every object has some sort of computing capability, and it is in some way `self-aware' of its current `needs' (has some goals and deadlines - in the example described above, the toaster knows that he needs power at 7 am for 3 minutes), and an overview of the whole system `needs'/status (what other objects need to do and when). The power budget reefers to a couple of information the network of objects is provided with. As we are particularly interested in power consumption, the environment will provide the system $G$ with a power budget $B$. As well as the power budget, the environment should provide the objects of the system with some sort of priorities for objects $P$; going back to the toaster example, the toaster has a high priority in the morning at 7am. 
+
+Let $T$ be the set of all time periods; to include the objects and the environment in our system, let
+\begin{center}
+$G = [N, B, P]$ be the system of IoT.
+\end{center} 
+\begin{itemize}
+  \item $N=\{i_{1}, i_{2}, ...,i_{n}\}$, the set of all $n$ objects of the system $G$.
+  \item $B=\{f:T\rightarrow\mathbb{R^+} | f(t)=x\}$, the set of power budget $x \in \mathbb{R^+}$ across time $\forall t \in T$.
+  \item Let $L=\{p_{1}, p_{2}, ...,p_{k}\}$ be the set of $k$ levels of priorities each object can have. $P=\{g:N \times T\rightarrow L | g(i, t)=y\}$, the set of all priorities ($y \in P$) for all objects ($\forall i \in N$) across time $\forall t \in T$.
+\end{itemize}
+
+
+
+
+
+\end{document} 
