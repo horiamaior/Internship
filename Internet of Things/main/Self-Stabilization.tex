@@ -1,8 +1,4 @@
-%\documentclass[letterpaper, 10 pt, conference]{../main/ieeeconf}
-\documentclass[conference]{IEEEtran}
-%\documentclass[a4paper, 10pt, conference]{ieeeconf}      % Use this line for a4 paper
-%\documentclass{../main/sigchi}
-%\documentclass[11pt]{article}
+\documentclass[letterpaper, 10 pt, conference]{ieeeconf}
 %=======================================
 %	Packages
 %=======================================
@@ -15,27 +11,26 @@
 %\usepackage{times} % assumes new font selection scheme installed
 %\usepackage{amsmath} % assumes amsmath package installed
 \usepackage{amssymb}  % assumes amsmath package installed
-
-
 \usepackage{graphicx}
 \usepackage{color}
 \usepackage{subfiles}
 \usepackage{comment}
+\usepackage[lined,ruled]{algorithm2e}
 %=======================================
 \title{From The Internet of Things to SELF Internet of Things}
-%\subtitle{Subtitle?}
-\author{\IEEEauthorblockN{Horia A. Maior}
-\IEEEauthorblockA{School of Computer Scienced\\
-Mixed Reality Lab\\
-University of Nottingham\\
-Email: psxhama@nottingham.ac.uk}
-\and
-\IEEEauthorblockN{Shrisha Rao}
-\IEEEauthorblockA{School of Computer Science\\
-International Institute of Information Technology\\ - Bangalore\\
-Email: Shirisha@iiitb.ac.in}}
+%\author{\IEEEauthorblockN{Horia A. Maior}
+%\IEEEauthorblockA{School of Computer Scienced\\
+%Mixed Reality Lab\\
+%University of Nottingham\\
+%Email: psxhama@nottingham.ac.uk}
+%\and
+%\IEEEauthorblockN{Shrisha Rao}
+%\IEEEauthorblockA{School of Computer Science\\
+%International Institute of Information Technology\\ - Bangalore\\
+%Email: Shirisha@iiitb.ac.in}}
 
-
+\IEEEoverridecommandlockouts
+\overrideIEEEmargins
 
 %=======================================
 %	Authors
@@ -54,7 +49,12 @@ Email: Shirisha@iiitb.ac.in}}
 %\email{Shirisha@iiitb.ac.in}
 %}
 
-
+\author{Horia A. Maior$^{1}$ and Shrisha Rao$^{2}$% <-this % stops a space
+\thanks{$^{1}$Horia A. Maior, Mixed Reality Lab, Faculty of Computer Science, University of Nottingham, United Kingdom.
+        {\tt\small psxhama@nottingham.ac.uk}}%
+\thanks{$^{2}$Shrisha Rao, International Institute of Information Technology - Bangalore, India.
+        {\tt\small srao@iiitb.ac.in}}%
+}
 \begin{document}
 
 \maketitle
@@ -76,12 +76,13 @@ Email: Shirisha@iiitb.ac.in}}
 %\category{}{Internet of Things, Distributed systems}{Self-Stabilization}
 
 %\terms{Evaluation Methods}
-\begin{IEEEkeywords} Internet of Things, Distributed Systems, Self-Stabilization, Self Adaptive System \end{IEEEkeywords}
+{\bf Keywords:} Internet of Things, Distributed Systems, Resource Allocation and Management.
 
 %=======================================
 %	Include Sections
 %=======================================
-\subfile{../tex/introduction}
+\subfile{../tex/Introduction}
+\subfile{../tex/RelatedWork}
 \subfile{../tex/ProblemStatement}
 \subfile{../tex/Discussion}
 \subfile{../tex/Conclusion}

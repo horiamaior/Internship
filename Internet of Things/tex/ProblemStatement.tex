@@ -1,25 +1,205 @@
 \documentclass[../main/Self-Stabilization.tex]{subfiles}
 \begin{document}
 
-\section{Problem Statement}
-In the previous section we described the IoT from various points of view and we discussed the applications such IoT within many areas of research. We also stated our interest in applying the IoT mentioning the approach that is need in our research. In this section we will describe an abstract model of IoT from a resource-constrained point of view, stating the problem we address. In the further sections, we will try solving the problem in hand, and provide a theoretical approach to it.
+\section{Problem Statement and The Model}\label{problem}
+In Section \ref{intro} we discussed and presented our interest and in the same time the focus of this paper. The following section, Section \ref{related}, describes the existing work within the area of IoT from various points of view, and mentions the applications such IoT within many areas of research. In this section we will describe an abstract model of IoT from a resource-constrained point of view, formally stating the problem we address. At the end of the section, we present and prove our result. The next section will present ...
 
-The problem in hand includes some sort of IoT within a resource-constrained system. We are particularly interested in energy consumption, and the use of IoT to help achieve energy efficient systems. This implies that the objects of the such a system are consumers of energy, and by exchanging information between objects, we can achieve more energy efficient systems. This can be explained best with an example. Imagine a smart house where your smart toaster communicates to all other smart objects in your home that he wants to consume power at 7 am. If the power budget would be limited, all other objects would consider the toaster schedule and will act accordingly. We already pointed out that the naive approach of having a centralized system where all objects are controlled in some way by a central controller or master node would have many limitations. We decided to go beyond this approach and represent the IoT as a distributed system, where each object in the system govern its own actions.
+The problem in hand includes some sort of IoT within a resource-constrained system. We are particularly interested in energy consumption, and the use of IoT to help achieve energy efficient systems. This implies that the objects of the IoT system are consumers of energy, and by exchanging information between objects, we can achieve more energy efficient systems. This can be explained best with an example. Imagine a smart house where your smart toaster communicates to all other smart objects in your home that he wants to consume power at 7 am. If the power budget would be limited, all other objects would consider the toaster schedule and will act accordingly. We already pointed out that the naive approach of having a centralized system where all objects are controlled in some way by a central controller or master node would have many limitations. We decided to go beyond this approach and represent the IoT as a distributed system, where each object in the system govern its own actions.
 
-Let $G$ represent the IoT system. $G$ contains a network of all objects from the IoT system, but also some sort of communication with `the environment'. To further explain the system, we need to decide what properties an object has and what properties and what exactly is such an `environment'. Every object in the system must be networked in such a way that is connected to all other objects (we will make abstraction of how they are physically networked). It is also assumed that every object has some sort of computing capability, and it is in some way `self-aware' of its current `needs' (has some goals and deadlines - in the example described above, the toaster knows that he needs power at 7 am for 3 minutes), and an overview of the whole system `needs'/status (what other objects need to do and when). The power budget reefers to a couple of information the network of objects is provided with. As we are particularly interested in power consumption, the environment will provide the system $G$ with a power budget $B$. As well as the power budget, the environment should provide the objects of the system with some sort of priorities for objects $P$; going back to the toaster example, the toaster has a high priority in the morning at 7am. 
+\subsection{Definition and Notations}
+Let there be numerous objects $o_{i}$ that consume some energy. The set objects, denoted as $N$, together with some sort of power supply constitute the whole system $G$.
+ \begin{center}
+    $N=\{o_{0}, o_{1}, ...,o_{n-1}\}$, the set of all $n$ objects of the system $G$.
+ \end{center}
+Each object consumes a non-negative amount of energy power resource. To simplify the system, let us consider this non-negative amount of power a constant for each object in the system (an object cannot change its power setting). Let $\mathbb{R^+}$ be the set of positive real numbers, then let the demand function, $f:N\rightarrow\mathbb{R^+} | f(o_{i})=r$, gives the power demand of each object $o_{i}$. This means object $o_{i}$ demands $r$ amount of power.
 
-Let $T$ be the set of all time periods; to include the objects and the environment in our system, let
+The Total Demand of system $G$ at any one time, as described by Rao~\cite{rao2011foundation}, is the sum of all power demands for all objects of system $G$:
 \begin{center}
-$G = [N, B, P]$ be the system of IoT.
-\end{center} 
+  %$\sum_{i=0}^{n-1} o_i$
+   $\sum\limits_{i=0}^{n-1} f(o_i)$
+\end{center}
+
+The power supply of system $G$, is the total amount of energy available to share between all the objects in the system at any time. The main property if the power supply is that it is variable in time. If we think of solar energy, during the daytime there is more energy to consume, whereas during the night, the solar energy is close to none. Let the set $T$ denote the set of all time instances, and $\mathbb{R^+}\cup\{0\}$ be the set of positive real numbers including $0$. Then, the function $\gamma:T\rightarrow\mathbb{R^+}\cup\{0\}$ denotes the power supply function. With $\gamma(t)= w$, $w$ the \cite{rao2011foundation} the maximum resource limit, in our case energy power, available in the system $G$ at a given time $t$.
+
+So far we could have distinguished between objects of $G$ in terms of their power demands. The question here is, what if the power supply cannot satisfy with power resource all objects of in the system? Rao~\cite{rao2011foundation} describes that in practice, distributed processes (objects in our case) drawing some sort of resource (power resource in our case), are distinguished from one another in terms of some sort of priorities. This is because some objects are more important than others in terms of their functions and utilities, and if the power supply cannot satisfy all the objects, priority will distinguish between the the high priority to low priority objects.
+
+Let $\delta:N\times T\rightarrow\mathbb{R^+}\cup\{0\}$ be the priority function, with $\delta(o_{i}, t)= p$, where $p$ is the priority of object $o_{i}$ at time $t$. As described, priority function is time dependent, that means objects can change priority in time.
+
+\subsection{IoT as a Distributed System}
 \begin{itemize}
-  \item $N=\{i_{1}, i_{2}, ...,i_{n}\}$, the set of all $n$ objects of the system $G$.
-  \item $B=\{f:T\rightarrow\mathbb{R^+} | f(t)=x\}$, the set of power budget $x \in \mathbb{R^+}$ across time $\forall t \in T$.
-  \item Let $L=\{p_{1}, p_{2}, ...,p_{k}\}$ be the set of $k$ levels of priorities each object can have. $P=\{g:N \times T\rightarrow L | g(i, t)=y\}$, the set of all priorities ($y \in P$) for all objects ($\forall i \in N$) across time $\forall t \in T$.
+  \item objects are networked
+  \item they communicate
+  \item learn about the system
+  \item Alg 1 (exploration alg)
+  \item Alg 2 (addition of new objects to the network)
+  \item Alg 3 (removing objects from the network)
+  \item proofs
 \end{itemize}
 
+In a distributed IoT, every object in the system $G$ is networked in such a way that is able to exchange information with all other objects (for simplicity, we make abstraction of how they are physically networked). It is also assumed that every object has some sort of computing capability (we assume that computing capability has no cost what so ever), and it is in some way `self-aware' of its current `needs' (for example each object knows or is able to find out about its power settings). Because we are building a de-centralized system, the decision-making comes to the object itself (this means that each object in the system decides on its own when is a suitable time to consume power resource), therefore, every object is also interested in an overview of the whole system (for example each object needs to know the maximum power limit $\gamma(t)= w$ but also each object has to know about what is its priority relative to other's in the network).
+
+When creating such a system, initially each object in the system is ``exploring'' the whole system in some way. During the exploration, objects need to find out (and memorize in some way) other objects with the same priority, and in the same time find out other priorities in the system. This way, every object will have an general overview of what is their own priority relative to other object in the system. The exploration is possible trough some sort of communication and exchange of information between objects. Making abstraction of how the communication is made, let $v$ and $u$ be two objects of the system $G$; $v,u \in\{N\}$. Let $_msg(v,u,m)$ be a message, where $v$ is the sender of the message, $u$ is the delivery object of the message and $m$ is the message (the message can contain any kind of information coming from the sender). Following Peleg's approach \cite{peleg2000distributed}, a message can be also broadcasted or ``flooded'' to/over a network (in our case system). The following is an adapted algorithm from \cite{peleg2000distributed}, for flooding a message across all $n$ objects of a system from a root object $o_{j}$:
+
+%Algorithm 1 - Flooding
+\LinesNumbered
+\IncMargin{1em}
+\begin{algorithm}
+%\DontPrintSemicolon
+Let a source $o_{j}$
+\BlankLine
+\For{$i \gets 0$ \textbf{to} $n-1$} {
+    \If {$i!=j$} {	
+        Send \emph{$msg(o_{j},o_{i},m)$}
+    }
+}
+\For{$i \gets 0$ \textbf{to} $n-1$} {
+
+\textbf{Upon} receiving a message $o_{i}$
+\begin{itemize}
+  \item Store the message
+  \item Compute the message
+  \item Send acknowledgement
+\end{itemize}
+}
+\caption{\textbf{Algorithm Flood}} \label{flood}
+\end{algorithm}
+\DecMargin{1em}
 
 
+Considering Algorithm Flood above, we design an exploration algorithm within our distributed IoT system. The algorithm is run by all abjects in the system, all trying to communicate to other objects information about their priority and their power weight. In the same time, they receive compute and store information from other objects, in the end, every object having an overview of their position in the system.
+
+Let $o_{i}$ be an object of $G$; $o_{i} \in\{N\}$. As described above, each object need to store information about other priorities in the system and objects of the same priority in the system. Let each object $o_{i}$ have to arranged lists:
+\begin{itemize}
+    \item let $P_{i}=$ be an arranged list where each object $o_{i}$ can store priorities of other objects in decreasing order; such that $P_{i}(0)$ is the highest priority in the set.
+    \item let $Q_{i}$ be an arranged list of objects of the same priority as $o_{i}$ in increasing order; such that $Q_{i}(0)$ is the object with smallest demand.
+\end{itemize}
+
+Before joining the system and running the exploration algorithm, every object $o_{i}$ lists are: $P_{i}=\{\emptyset\}$ and $Q_{i}=\{\emptyset\}\cup\{\delta(o_{i},t)\}$. Please consider Exploration Algorithm below
+
+%Algorithm 2 - exploration
+\LinesNumbered
+\IncMargin{1em}
+\begin{algorithm}
+%\DontPrintSemicolon
+Let $time = t_{0}$ \newline
+Let object $o_{i}$ run an Flood Algorithm over $G$ \newline
+send: $msg(o_{i}, join, \delta(o_{i}, t_{0}), f(o_{i}))$
+\BlankLine
+
+\For{$j \gets 0$ \textbf{to} $n-1$} {
+    Let $o_{j}$, ($j!=i$) receive the message
+    \BlankLine
+    \textbf{Upon} receiving:\newline
+    \If {$\delta(o_{i},t_{0}) = \delta(o_{j},t_{0})$} {
+        \begin{itemize}
+          \item \textbf{Insert} $o_{i}$ in $Q_{j}$ \textbf{in order} of $f(o_{i})$
+          \item Send acknowledgement ($\delta(o_{i},t_{0}) = \delta(o_{j},t_{0})$)
+        \end{itemize}
+    }
+    \Else {
+        \If {$\delta(o_{i},t_{0}) \notin P_{j}$} {
+
+            \begin{itemize}
+              \item \textbf{Insert} $\delta(o_{i},t_{0})$ in $P_{j}$ \textbf{in order}
+              \item Send acknowledgement $\delta(o_{i},t_{0}) < \delta(o_{j},t_{0})$ (if so)
+              \item Send acknowledgement $\delta(o_{i},t_{0}) > \delta(o_{j},t_{0})$ (if so)
+            \end{itemize}
+        }
+    }
+}
+\caption{\textbf{Exploration Algorithm} run by any object joining the system $G$} \label{algo2}
+\end{algorithm}
+\DecMargin{1em}
+
+We are describing an extensible IoT system, therefore new objects can join and objects that no longer want to be part of the system can leave at any time. When joining the system, the new object shall run the exploration algorithm. This way, other objects will make note of the new object's details (like priority and power setting), but in the same time, the new object will create it's overview of the system trough message acknowledgements from the existing objects. When an object is leaving the system it shall inform the other objects about it's intentions.
+
+%Algorithm 3 - removing an object
+\LinesNumbered
+\IncMargin{1em}
+\begin{algorithm}
+%\DontPrintSemicolon
+Let $time = t$ \newline
+Let the object $o_{i}$ leave the system \newline
+Flood Algorithm over $G$ \newline
+send: $msg(o_{i}, leave,\delta(o_{i}, t), Q_{i})$
+\BlankLine
+
+\For{$j \gets 0$ \textbf{to} $n-1$} {
+    Let $o_{j}$, ($j!=i$) receive the message
+    \BlankLine
+    \textbf{Upon} receiving:\newline
+    \If {$\delta(o_{i},t) = \delta(o_{j},t)$} {
+        \begin{itemize}
+          \item \textbf{Remove} $o_{i}$ from $Q_{j}$
+          \item Send acknowledgement
+        \end{itemize}
+    }
+    \Else {
+        \If {$Q_{i} - \{o_{i}\} = \emptyset$} {
+
+            \begin{itemize}
+              \item \textbf{Remove} $\delta(o_{i},t)$ from $P_{j}$
+              \item Send acknowledgement
+            \end{itemize}
+        }
+    }
+}
+\caption{\textbf{Leave Algorithm} run by every object leaving the system $G$} \label{algo2}
+\end{algorithm}
+\DecMargin{1em}
+
+\subsection{Prioritized objects and a happy IoT}
+
+So far we have described the objects of $G$, having a power setting and some sort of priority. We described a distributed $G$, where each object communicates with all other objects in the system, and explores the system and finds out about other objects. However, we did not yet mentioned how the system is powered from the power supply, and how objects receive power resource.
+
+We discussed that objects can have different priorities, and that is because some objects are more important in a way than others. Therefore, higher priority objects are more likely to get power resource than lower-priority ones. We also discussed that objects can have different power demands (settings). That is, one object might need more power resource than other ones. Using the following proposition, the system satisfies with power resource as many high priority objects as possible.
+
+\textbf{Proposition 1.} \emph{In our Self-Internet of Things model, for any amount of power resource available at any time ($\gamma(t)= w$), the higher-priority object, having the smallest power demand, will be powered first.}
+
+Summarizing the system $G$, there are $n$ objects $o_{i}\in N$, with $0<=i<=n-1$. Each object has a power demand $f(o_{i})$, a priority $\delta(o_{i}, t)$, and an overview of other objects priorities in the system (in decreasing order in list $P_{i}$; such that $P_{i}(0)$ the highest priority) and objects with the same priority (in increasing order of power demands in $Q_{i}$; such that $Q_{i}(0)$ is the smallest demand object of $o_{i}'s$ priority). The power resource is the function $\gamma(t) = w$, representing the power budget of the system $G$ at every time $t \in T$.
+
+
+%Algorithm 4 - powering the system
+\LinesNumbered
+\IncMargin{1em}
+\begin{algorithm}
+%\DontPrintSemicolon
+Let Time = $t$ \newline
+$w \gets \gamma(t)$ \newline
+Let object $o_{i}$ run this code
+\BlankLine
+\While{true}{
+    \If {$\delta(o_{i}, t)>P_{i}(0)$ and $f(o_{i})=Q_{i}(0)$ and $f(o_{i})<=w$}{
+        \textbf{Power} object $o_{i}$\newline
+        $w \gets w - f(o_{i})$\newline
+        \If {$Q_{i} - \{o_{i}\} = \{\emptyset\}$}{
+            $nextPriority \gets P_{i}(0)$\newline
+            \textbf{Send} $msg(nextPriority, w)$
+        }\Else{
+            $nextObj \gets Q_{i}(1)$ \newline
+            \textbf{Send} $msg(nextObj, w$)
+        }
+    }
+    \textbf{Upon} receiving one of the msg:\newline
+    \textbf{Receiving} $msg(nextObj, w)$\newline
+    \textbf{Receiving} $msg(nextPriority, w)$\newline
+    \If{$(o_{i} = nextObj$ and $f(o_{i})<=w)$ or \newline
+        $(\delta(o_{i}, t) = nextPriority$ and $f(o_{i})=Q_{i}(0)$ and $f(o_{i})<=w)$}{
+        \textbf{Power} object $o_{i}$\newline
+        $w \gets w - f(o_{i})$\newline
+        \If {$Q_{i} - \{o_{i}\} = \{\emptyset$\}}{
+            $nextPriority \gets P_{i}(j) <=>$ \newline
+            $(P_{i}(j-1)>\delta(o_{i},t) > P_{i}(j)$)
+            \textbf{Send} $msg(nextPriority, w)$
+        }\Else{
+            $nextObj \gets Q_{i}(j) <=> (o_{i}=Q_{i}(j-1))$ \newline
+            \textbf{Send} $msg(nextObj, w)$
+        }       
+    }
+}
+\caption{\textbf{Power Algorithm}} \label{algo2}
+\end{algorithm}
+\DecMargin{1em}
 
 
 \end{document} 
