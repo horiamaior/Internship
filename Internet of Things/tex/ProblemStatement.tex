@@ -2,45 +2,34 @@
 \begin{document}
 
 \section{Problem Statement and The Model}\label{problem}
-In Section \ref{intro} we discussed and presented our interest and in the same time the focus of this paper. The following section, Section \ref{related}, describes the existing work within the area of IoT from various points of view, and mentions the applications such IoT within many areas of research. In this section we will describe an abstract model of IoT from a resource-constrained point of view, formally stating the problem we address. At the end of the section, we present and prove our result. The next section will present ...
+In Section \ref{intro} we discussed and presented our interest and in the same time the focus of this paper. We describes the existing work within the area of IoT from various points of view, and mentioned the applications such IoT within many areas of research. In this section we will describe an abstract model of IoT from a resource-constrained point of view, formally stating the problem we address. At the end of the section, we present and prove our result. The next section will present ...
 
-The problem in hand includes some sort of IoT within a resource-constrained system. We are particularly interested in energy consumption, and the use of IoT to help achieve energy efficient systems. This implies that the objects of the IoT system are consumers of energy, and by exchanging information between objects, we can achieve more energy efficient systems. This can be explained best with an example. Imagine a smart house where your smart toaster communicates to all other smart objects in your home that he wants to consume power at 7 am. If the power budget would be limited, all other objects would consider the toaster schedule and will act accordingly. We already pointed out that the naive approach of having a centralized system where all objects are controlled in some way by a central controller or master node would have many limitations. We decided to go beyond this approach and represent the IoT as a distributed system, where each object in the system govern its own actions.
+We are particularly interested creating a framework for an extensible, decentralized, self-governing, further proving the benefits of such a system in achieving energy efficient systems. We assume that the objects of the IoT system we are trying to represent are power resource consumers, and they are connected to a shared power supply, providing them with a limited, variable in time power resource.
 
 \subsection{Definition and Notations}
-Let there be numerous objects $o_{i}$ that consume some energy. The set objects, denoted as $N$, together with some sort of power supply constitute the whole system $G$.
+Let there be numerous objects $o_{i}$ that demand and may consume power resource. The set of all objects, denoted as $O$, together with some sort of power supply constitute the whole system.
  \begin{center}
-    $N=\{o_{0}, o_{1}, ...,o_{n-1}\}$, the set of all $n$ objects of the system $G$.
+    $O=\{o_{0}, o_{1}, ...,o_{n-1}\}$, the set of all $n$ objects.
  \end{center}
-Each object consumes a non-negative amount of energy power resource. To simplify the system, let us consider this non-negative amount of power a constant for each object in the system (an object cannot change its power setting). Let $\mathbb{R^+}$ be the set of positive real numbers, then let the demand function, $f:N\rightarrow\mathbb{R^+} | f(o_{i})=r$, gives the power demand of each object $o_{i}$. This means object $o_{i}$ demands $r$ amount of power.
+Each object consumes a non-negative amount of power resource. To simplify the system, let us consider this non-negative amount of power constant for each object in the system (an object cannot change its power demand). Let $\mathbb{R^+}$ be the set of positive real numbers, then let the demand function, $f:O\rightarrow\mathbb{R^+} | f(o_{i})=r$, give the power demand of each object $o_{i}$. This means object $o_{i}$ demands $r$ amount of power from the power supply.
 
-The Total Demand of system $G$ at any one time, as described by Rao~\cite{rao2011foundation}, is the sum of all power demands for all objects of system $G$:
+The Total Demand of system at any one time, as described by Rao~\cite{rao2011foundation}, is the sum of all power demands for all objects in the system:
 \begin{center}
   %$\sum_{i=0}^{n-1} o_i$
    $\sum\limits_{i=0}^{n-1} f(o_i)$
 \end{center}
 
-The power supply of system $G$, is the total amount of energy available to share between all the objects in the system at any time. The main property if the power supply is that it is variable in time. If we think of solar energy, during the daytime there is more energy to consume, whereas during the night, the solar energy is close to none. Let the set $T$ denote the set of all time instances, and $\mathbb{R^+}\cup\{0\}$ be the set of positive real numbers including $0$. Then, the function $\gamma:T\rightarrow\mathbb{R^+}\cup\{0\}$ denotes the power supply function. With $\gamma(t)= w$, $w$ the \cite{rao2011foundation} the maximum resource limit, in our case energy power, available in the system $G$ at a given time $t$.
+The power supply can be described as the total amount of power resource available to share between all the objects of the system at any time. The main property of the power supply is that it is variable in time. If we think of solar power example, during different daytime periods, available power resource may vary. Let the set $T$ denote the set of all time instances, and $\mathbb{R^+}\cup\{0\}$ be the set of positive real numbers including $0$. Then, the function $\gamma:T\rightarrow\mathbb{R^+}\cup\{0\}$ denotes the power supply function. With $\gamma(t)= w$, $w$ the \cite{rao2011foundation} the maximum resource limit, in our case power resource, available in the system at a given time $t$.
 
-So far we could have distinguished between objects of $G$ in terms of their power demands. The question here is, what if the power supply cannot satisfy with power resource all objects of in the system? Rao~\cite{rao2011foundation} describes that in practice, distributed processes (objects in our case) drawing some sort of resource (power resource in our case), are distinguished from one another in terms of some sort of priorities. This is because some objects are more important than others in terms of their functions and utilities, and if the power supply cannot satisfy all the objects, priority will distinguish between the the high priority to low priority objects.
+We described objects having various power demands and we described a power supply providing the system with power resource. The question here is, what if the power supply cannot satisfy with power resource all objects of in the system? Rao~\cite{rao2011foundation} describes that in practice, distributed processes (objects in our case) drawing some sort of resource (power resource in our case), are distinguished from one another in terms of some sort of priorities. This is because some objects are more important than others in terms of their functions and utilities, and if the power supply cannot satisfy all the objects, priority will distinguish between the the high priority to low priority objects.
 
-Let $\delta:N\times T\rightarrow\mathbb{R^+}\cup\{0\}$ be the priority function, with $\delta(o_{i}, t)= p$, where $p$ is the priority of object $o_{i}$ at time $t$. As described, priority function is time dependent, that means objects can change priority in time.
+Let $\delta:O\times T\rightarrow\mathbb{R^+}\cup\{0\}$ be the priority function, with $\delta(o_{i}, t)= p$, where $p$ is the priority of object $o_{i}$ at time $t$. As described, priority function is time dependent, that means objects can change priority in time.
 
 \subsection{IoT as a Distributed System}
-\begin{itemize}
-  \item objects are networked
-  \item they communicate
-  \item learn about the system
-  \item Alg 1 (exploration alg)
-  \item Alg 2 (addition of new objects to the network)
-  \item Alg 3 (removing objects from the network)
-  \item proofs
-\end{itemize}
 
-In a distributed IoT, every object in the system $G$ is networked in such a way that is able to exchange information with all other objects (for simplicity, we make abstraction of how they are physically networked). It is also assumed that every object has some sort of computing capability (we assume that computing capability has no cost what so ever), and it is in some way `self-aware' of its current `needs' (for example each object knows or is able to find out about its power settings). Because we are building a de-centralized system, the decision-making comes to the object itself (this means that each object in the system decides on its own when is a suitable time to consume power resource), therefore, every object is also interested in an overview of the whole system (for example each object needs to know the maximum power limit $\gamma(t)= w$ but also each object has to know about what is its priority relative to other's in the network).
+In a distributed IoT, every object is networked in some way so it is able to exchange information with all other objects in the system (for simplicity, we make abstraction of how they are physically networked). It is also assumed that every object has some sort of computing capability (we assume that computing capability has no cost what so ever), and it is in some way `self-aware' of its current `needs' (for example each object knows or is able to find out about its power settings). Because we are building a de-centralized system, the decision-making comes to the object itself (this means that each object in the system decides on its own when is a suitable time to consume power resource), therefore, every object is also interested in an overview of the whole system (for example each object needs to know the maximum power limit $\gamma(t)= w$ but also each object has to know about what is its priority relative to other's in the network).
 
-When creating such a system, initially each object in the system is ``exploring'' the whole system in some way. During the exploration, objects need to find out (and memorize in some way) other objects with the same priority, and in the same time find out other priorities in the system. This way, every object will have an general overview of what is their own priority relative to other object in the system. The exploration is possible trough some sort of communication and exchange of information between objects. Making abstraction of how the communication is made, let $v$ and $u$ be two objects of the system $G$; $v,u \in\{N\}$. Let $msg(v,u,m)$ be a message, where $v$ is the sender of the message, $u$ is the delivery object of the message and $m$ is the message (the message can contain any kind of information coming from the sender). Following Peleg's approach \cite{peleg2000distributed}, a message can be also broadcasted or ``flooded'' to/over a network (in our case system). The following is an adapted algorithm from \cite{peleg2000distributed}, for flooding a message across all $n$ objects of a system from a root object $o_{j}$:
-
-\textbf{Proposition 1.} \emph{In our Self-Internet of Things model, any object can broadcast messages to all other objects or send messages ``in private'' with a specific object destination.}
+When creating such a system, each object in the system is ``exploring'' the whole system in some way. During the exploration, objects need to find out (and memorize in some way) other objects with the same priority, and in the same time find out other priorities in the system. This way, every object will have an general overview of what is their own priority relative to other object in the system. The exploration is possible trough some sort of communication and exchange of information between objects. Making abstraction of how the communication is made, let $v$ and $u$ be two objects; $v,u \in\{O\}$. Let $msg(v,u,m)$ be a message, where $v$ is the sender of the message, $u$ is the delivery object of the message and $m$ is the message (the message can contain any kind of information coming from the sender). Following Peleg's approach \cite{peleg2000distributed}, a message can be also broadcasted or ``flooded'' to/over a network (in our case system). Algorithm \ref{flood} below, is an adapted version from \cite{peleg2000distributed}, for broadcasting a message across all $n$ objects of a system, from a root object $o_{j}$:
 
 %Algorithm 1 - Flooding
 \LinesNumbered
@@ -51,114 +40,119 @@ Let a source $o_{j}$
 \BlankLine
 \For{$i \gets 0$ \textbf{to} $n-1$} {
     \If {$i!=j$} {	
-        Send \emph{$msg(o_{j},o_{i},m)$} \newline
-	    \tcc{$o_{j}$ sending the message to all other objects $o_{i}$}
+        Send \emph{$msg(o_{j},o_{i},m)$}
     }
 }
 \For{$i \gets 0$ \textbf{to} $n-1$} {
-
-\textbf{Upon} receiving a message $o_{i}$
-\begin{itemize}
-  \item Store the message
-  \item Compute the message
-  \item Send acknowledgement
-\end{itemize}
+    \textbf{Upon} receiving a message $o_{i}$
+    \begin{itemize}
+      \item Store the message
+      \item Compute the message
+      \item Send acknowledgement
+    \end{itemize}
 }
 \caption{\textbf{Algorithm Flood}} \label{flood}
 \end{algorithm}
 \DecMargin{1em}
 
+The number of messages sent by each object can be used to evaluate the complexity of the Algorithm \ref{flood} and all further algorithms used in this paper. Because each object is sending a message to all other objects, having $n$ objects, in total there will be $n \times n$ messages across the whole system; therefore the Big $O$ of Algorithm is $O(n^2)$.
 
-Considering Algorithm Flood above, we design an exploration algorithm within our distributed IoT system. The algorithm is run by all objects in the system, all trying to communicate to other objects information about their priority and their power weight. In the same time, they receive compute and store information from other objects, in the end, every object having an overview of their position in the system.
+Using Algorithm \ref{flood}, we design an exploration algorithm that is run by all objects in the system, all trying to communicate to other objects information about their priority and their power demand. In the same time, objects receive, compute and store information about other objects. Therefore, every object will end up having an overview of their position in the system.
 
-Let $o_{i}$ be an object of $G$; $o_{i} \in\{N\}$. As described above, each object need to store information about other priorities in the system and objects of the same priority in the system. Let each object $o_{i}$ have to arranged lists:
+Let $o_{i}$ be an object; $o_{i} \in\{O\}$. As described above, each object stores information about other priorities in the system and other objects of the same priority in the system. Let each every object $o_{i}$ have to arranged lists:
 \begin{itemize}
-    \item let $P_{i}=$ be an arranged list where each object $o_{i}$ can store priorities of other objects in decreasing order; such that $P_{i}(0)$ is the highest priority in the set.
-    \item let $Q_{i}$ be an arranged list of objects of the same priority as $o_{i}$ in increasing order; such that $Q_{i}(0)$ is the object with smallest demand.
+    \item let $P_{i}=$ be an arranged list where each object $o_{i}$ can store priorities of other objects (decreasing order); such that $P_{i}(0)$ is the highest priority in the set.
+    \item let $Q_{i}$ be an arranged list of objects of the same priority as $o_{i}$ (increasing order); such that $Q_{i}(0)$ is the object with smallest demand.
 \end{itemize}
 
-Before joining the system and running the exploration algorithm, every object $o_{i}$ lists are: $P_{i}=\{\emptyset\}$ and $Q_{i}=\{\emptyset\}\cup\{\delta(o_{i},t)\}$. Please consider Exploration Algorithm below
-
-\textbf{Proposition 2.} \emph{Connected objects within a decentralized, extensible IoT, exchanging information, each exploring and creating it's own overview of the system.}
+Before joining the system and running the exploration algorithm, every object $o_{i}$ has: $P_{i}=\{\emptyset\}$ and $Q_{i}=\{\emptyset\}\cup\{\delta(o_{i},t)\}$. Please consider Exploration Algorithm (\ref{algo2})below.
 
 %Algorithm 2 - exploration
 \LinesNumbered
 \IncMargin{1em}
 \begin{algorithm}
 %\DontPrintSemicolon
-$t_{0} = current time$ 
+$t_{0} = current time$
 \BlankLine
 $o_{i} \gets$ Flood Algorithm over $G$ \newline
 sending: $msg(o_{i}, join, \delta(o_{i}, t_{0}), f(o_{i}))$
-\tcc{message contains:sender, keyword, $o_{i}$'s priority at $t_{0}$, and $o_{i}$'s power demand}
 \BlankLine
 \For{$j \gets 0$ \textbf{to} $n-1$} {
     Let $o_{j}$, ($j!=i$) receive the message
     \BlankLine
     \textbf{Upon} receiving message:\newline
-    \If {$\delta(o_{i},t_{0}) = \delta(o_{j},t_{0})$ \tcc{if objects have the same priority}}
+    \If {$\delta(o_{i},t_{0}) = \delta(o_{j},t_{0})$}
     {
        \textbf{Insert} $o_{i}$ in $Q_{j}$ \textbf{in order} of $f(o_{i})$
-       \tcc{Insert the object in the in order of power demand}
+       \BlankLine
        \textbf{Send} acknowledgement ($\delta(o_{i},t_{0}) = \delta(o_{j},t_{0})$)
     }
     \Else {
         \If {$\delta(o_{i},t_{0}) \notin P_{j}$} {
-            \BlankLine
             \textbf{Insert} $\delta(o_{i},t_{0})$ in $P_{j}$ \textbf{in order}
-            \tcc{if priority differs and is new to the object receiving the message, store the new priority}
             \BlankLine
             \textbf{Send }acknowledgement $\delta(o_{i},t_{0}) < \delta(o_{j},t_{0})$ (if so) \newline
             \textbf{Send }acknowledgement $\delta(o_{i},t_{0}) > \delta(o_{j},t_{0})$ (if so)
         }
     }
 }
-\caption{\textbf{Exploration Algorithm} run by all object joining the system $G$} \label{algo2}
+\caption{\textbf{Exploration Algorithm} run by all object joining the system} \label{algo2}
 \end{algorithm}
 \DecMargin{1em}
 
-We are describing an extensible IoT system, therefore new objects can join and objects that no longer want to be part of the system can leave at any time. When joining the system, the new object shall run the exploration algorithm. This way, other objects will make note of the new object's details (like priority and power setting), but in the same time, the new object will create it's overview of the system trough message acknowledgements from the existing objects. When an object is leaving the system it shall inform the other objects about it's intentions.
+The Algorithm \ref{algo2} has complexity Big $O (n^2)$, and this is mostly because it is using Algorithm \ref{flood} (every object sends a message to all other objects).
+
+Being an extensible IoT system, new objects can join at any time, and objects may no longer want to be part of the system and leave at any time. An object joins the system when it demands power resource. When joining, the new object shall run the exploration algorithm. This way, other objects will make note of the new object's details (like priority and power setting), but in the same time, the new object will create it's overview of the system trough message acknowledgements from the existing objects. An object is leaving the system when it is no-longer interested in power resource at that particular time. On leaving, the object informs all the other objects about it's intentions.
+
+As mentioned in the previous section, we are describing a system with non-preemptive power policy. Meaning that there is no partial fulfillment; when an object was allocated power resource, it is not interrupted until it has finished it's demands, or there is a change in available power resources. In other words, if a new object with high priority joins the system at some point and a low priority object has been allocated with power, the new object has to wait until the low priority object is leaving the system, or more power is provided by the power supply. Algorithm \ref{algo3} describes exactly what happens when an object is leaving the system.
 
 %Algorithm 3 - removing an object
 \LinesNumbered
 \IncMargin{1em}
 \begin{algorithm}
 %\DontPrintSemicolon
-$t = leaving time$ 
+$t = leaving time$
 \BlankLine
 $o_{i} \gets$ leave the system \newline
 Flood Algorithm over $G$ \newline
-send: $msg(o_{i}, leave,\delta(o_{i}, t), Q_{i}, f(o_{i}))$
-\tcc{message contains: sender, keyword, $o_{i}$'s priority at $t$, remaining list of objects with own priority level, and $o_{i}$'s power demand}
+send: $msg(o_{i}, leave,\delta(o_{i}, t), Q_{i}, f(o_{i}), powered=T/F)$
 \BlankLine
 \For{$j \gets 0$ \textbf{to} $n-1$} {
-    Let $o_{j}$, ($j!=i$) receive the message \tcc{other objects $o_{j}$ receiving the message}
+    Let $o_{j}$, ($j!=i$) receive the message
     \BlankLine
     \textbf{Upon} receiving:\newline
-    \If {$\delta(o_{i},t) = \delta(o_{j},t)$ \tcc{if they have the same priority}} {
+    \If {$\delta(o_{i},t) = \delta(o_{j},t)$} {
           \textbf{Remove} $o_{i}$ from $Q_{j}$
-          \BlankLine
     }
     \Else {
-        \If {$Q_{i} - \{o_{i}\} = \emptyset$ \tcc{if the leaving object was the only one of it's priority}}{
-              \textbf{Remove} $\delta(o_{i},t)$ from $P_{j}$ \tcc{ removing leaving object priority from $P_{j}$}
+        \If {$Q_{i} - \{o_{i}\} = \emptyset$}{
+            \textbf{Remove} $\delta(o_{i},t)$ from $P_{j}$
         }
     }
+    \If{$powered = T$}{
+        $w \gets w + f(o_{i})$
+    }
 }
-\caption{\textbf{Leave Algorithm} run by every object leaving the system $G$} \label{algo2}
+\caption{\textbf{Leave Algorithm} run by every object leaving the system} \label{algo3}
 \end{algorithm}
 \DecMargin{1em}
 
+In Algorithm \ref{algo3}, the leaving object messages all other objects three important pieces of information:
+ \begin{itemize}
+   \item it's priority level $\delta(o_{i}, t)$ over (together with the list with other objects of it's priority $Q_{i}$)
+   \item it's power demand $f(o_{i})$.
+   \item a boolean $powered$ representing whether or not the leaving object was powered or not.
+ \end{itemize}
+ 
+In the case that the leaving object has the same priority with the one receiving the message, the last one mentioned has to remove the the leaving object from the same priority objects database $Q_{j}$ (see line $5, 6$ in Algorithm \ref{algo3}). In the case that the leaving object is the last of its priority, the whole priority level is removed from the other priorities database $P_{j}$ (see line $9, 10$ in Algorithm \ref{algo3}). Finally, if the leaving object was powered, it's power demand becomes available for other objects (see line $13-15$ in Algorithm \ref{algo3}).
+
 \subsection{Prioritized objects and a happy IoT}
 
-So far we have described the objects of $G$, having a power setting and some sort of priority. We described a distributed $G$, where each object communicates with all other objects in the system, and explores the system and finds out about other objects. However, we did not yet mentioned how the system is powered from the power supply, and how objects receive power resource.
+In he subsections above, it has been described a distributed, extensible system, with objects that are able to communicate with other objects of the system, with new objects joining the system and objects maybe leaving the system. However, we did not yet mentioned how the system is powered from the power supply, that is how each individual object receives, if so, power resource.
 
-We discussed that objects can have different priorities, and that is because some objects are more important in a way than others. Therefore, higher priority objects are more likely to get power resource than lower-priority ones. We also discussed that objects can have different power demands (settings). That is, one object might need more power resource than other ones. Using the following proposition, the system satisfies with power resource as many high priority objects as possible.
+We discussed that objects can have different priorities, and that is because some objects are more important in a way than others. In the case of not being able to satisfy all objects with power resource, higher priority objects are more likely to get power resource than lower-priority ones. We also discussed that objects can have different power demands. That is, one object might need more power resource than other ones. In the case of objects having the same priority level, the system satisfies shall provide power resource to low consumer objects, that is to satisfy with power as many high priority objects as possible.
 
-\textbf{Proposition 3.} \emph{In our Self-Internet of Things model, for any amount of power resource available at any time ($\gamma(t)= w$), the higher-priority object, having the smallest power demand, will be powered first.}
-
-Summarizing the system $G$, there are $n$ objects $o_{i}\in N$, with $0<=i<=n-1$. Each object has a power demand $f(o_{i})$, a priority $\delta(o_{i}, t)$, and an overview of other objects priorities in the system (in decreasing order in list $P_{i}$; such that $P_{i}(0)$ the highest priority) and objects with the same priority (in increasing order of power demands in $Q_{i}$; such that $Q_{i}(0)$ is the smallest demand object of $o_{i}'s$ priority). The power resource is the function $\gamma(t) = w$, representing the power budget of the system $G$ at every time $t \in T$.
-
+Let there be $n$ objects $o_{i}\in O$, with $0<=i<=n-1$. Each object has a power demand $f(o_{i})$, a priority function $\delta(o_{i}, t)$, and each object has created its own overview of other objects priorities in the system (in decreasing order the list $P_{i}$; such that $P_{i}(0)$ the highest priority), and objects with the same priority (in increasing order of power demands the list $Q_{i}$; such that $Q_{i}(0)$ is the smallest demand object of $o_{i}'s$ priority). The power supplies is denoted by the function $\gamma(t) = w$, providing the power resource available at every time $t \in T$. The following algorithm (Algorithm \ref{algo4}) describes how the power supplier, supplies the highest priority object with the smallest power demand first, and then how each object informs other objects about their actions and remaining power resource.
 
 %Algorithm 4 - powering the system
 \LinesNumbered
@@ -167,44 +161,80 @@ Summarizing the system $G$, there are $n$ objects $o_{i}\in N$, with $0<=i<=n-1$
 %\DontPrintSemicolon
 $t = current time$
 \BlankLine
-$w \gets \gamma(t)$ \tcc{power resource}
+Let $o_{i}$ the object running this code
 \BlankLine
-$o_{i} \gets current object$
-\BlankLine
-\If {$\delta(o_{i}, t)>P_{i}(0)$ and $f(o_{i})=Q_{i}(0)$ and $f(o_{i})<=w$ \tcc{highest priority object with smallest power demand gets powered first}}{
-    \textbf{Power} object $o_{i}$
-    \BlankLine 
-    $w \gets w - f(o_{i})$\newline
+\If {$\delta(o_{i}, t)>P_{i}(0)$ \textbf{and} $f(o_{i})=Q_{i}(0)$}{
+    $w \gets \gamma(t)$
+    \BlankLine
+    \If{$f(o_{i})<=w$}{
+        \textbf{Power} object $o_{i}$
+        \BlankLine
+        $w \gets w - f(o_{i})$
+        \BlankLine
+    }
     \If {$Q_{i} - \{o_{i}\} = \{\emptyset\}$}{
-        $nextPriority \gets P_{i}(0)$\newline
-        \textbf{Send} $msg(nextPriority, w)$
+        $nextPriority \gets P_{i}(0)$
+        \BlankLine
+        \textbf{Broadcast} $msg(power, nextPriority, w)$
     }\Else{
-        $nextObj \gets Q_{i}(1)$ \newline
-        \textbf{Send} $msg(nextObj, w$)
+        $nextObj \gets Q_{i}(1)$ 
+        \BlankLine
+        \textbf{Send} $msg(power, nextObj, w$)
     }
 }
 \textbf{Upon} receiving one of the msg:\newline
 \textbf{Receiving} $msg(nextObj, w)$ or\newline
 \textbf{Receiving} $msg(nextPriority, w)$\newline
-\If{$(o_{i} = nextObj$ and $f(o_{i})<=w)$ or \newline
-    $(\delta(o_{i}, t) = nextPriority$ and $f(o_{i})=Q_{i}(0)$ and $f(o_{i})<=w)$}{
-    \textbf{Power} object $o_{i}$\newline
-    $w \gets w - f(o_{i})$\newline
+\If{$(o_{i} = nextObj$)\textbf{ or }\newline
+    $(\delta(o_{i}, t) = nextPriority$ \textbf{and} $f(o_{i})=Q_{i}(0))$}{
+    \If{$f(o_{i})<=w$}{
+        \textbf{Power} object $o_{i}$
+        \BlankLine
+        $w \gets w - f(o_{i})$\newline
+    }
     \If {$Q_{i} - \{o_{i}\} = \{\emptyset$\}}{
         $nextPriority \gets P_{i}(j) <=>$ \newline
         $(P_{i}(j-1)>\delta(o_{i},t) > P_{i}(j)$)
-        \textbf{Send} $msg(nextPriority, w)$
+        \BlankLine
+        \textbf{Broadcast} $msg(nextPriority, w)$
     }\Else{
-        $nextObj \gets Q_{i}(j) <=> (o_{i}=Q_{i}(j-1))$ \newline
+        $nextObj \gets Q_{i}(j) <=> (o_{i}=Q_{i}(j-1))$
+        \BlankLine
         \textbf{Send} $msg(nextObj, w)$
     }
 }
-\caption{\textbf{Power Algorithm}} \label{algo2}
-
-
-
+\caption{\textbf{Power Algorithm}} \label{algo4}
 \end{algorithm}
 \DecMargin{1em}
 
+Algorithm \ref{algo4} is run by all objects in the system individually. The first part of the algorithm, lines $3-17$, will addresses to the object with the highest priority and the lowest power demand of the system (line $3$), this object having the first chance to get powered (in the case that the available power resource can satisfy its power demands - line $4-6$). From this point, the current object informs the next object with the same priority (if there is one - lines $13-16$), otherwise it broadcasts an information containing the new priority that shall receive power ($lines 9-12$). The second part of Algorithm \ref{4}, lines $18-31$ address all the other objects of the system, which are waiting for a message addressing them or their priority level. The smallest consumer of a priority category will always be powered first. Regardless if an object gets powered, it will always send a message to the next object or priority group. This enables small demand objects with small priority to get powered in the case of a high priority object cannot fulfil its demands with available power resource.
 
+The complexity of Algorithm \ref{algo4} in Big $O$ notation is $O(n^2)$. The worse case scenario is when all objects have different priorities, and every object is broadcasting a message once ($n\times n$).
+
+\subsection{Proofs of Correctness}
+In the previous subsections we developed a framework and created algorithms for describing our IoT model. In this subsection, we are identifying a set of properties of the system, and we are trying to prove the correctness of our proposed design by validating these properties.
+
+Property 1: \emph{No Starvation}. This property guaranties that all the available power will be used by the objects of the system, ant there will be not object entering a starvation situation while there is available resource in the system meeting that objects demands.
+
+\emph{Proof 1.1 (The obvious case).} When the available power resource exceeds the Total Demand of the system, all objects of the system shall be powered. Let $B = \{T,F\}$ the set of boolean values true ($T$) and false ($F$), and function $p:O\times T \rightarrow B$:
+
+  \[ p(o_{i}, t)= \left\{
+  \begin{array}{l l}
+    $T$ & \quad \textrm{if $o_{i}$ is powered}\\
+    $F$ & \quad \textrm{if $o_{i}$ is not powered}
+  \end{array} \right.\]
+
+\begin{center}
+    If $\gamma(t)\geq\sum\limits_{i=0}^{n-1} f(o_i) \implies \forall o_{i}\in O, p(o_{i} = T)$
+\end{center}
+
+\emph{Proof 1.2.} If there is not enough power resource to meet the Total Demand, the available power will be used to the maximum possible (after running Algorithm \ref{algo4}). 
+\begin{center}
+  $\nexists o_{i}\in O, (p(o_{i}) = F)$ \textbf{and} $(f(o_{i})\leq w); $
+\end{center}
+
+Property 2: \emph{Valid Priority}. This property guaranties that high priority objects get powered first if possible.
+\begin{center}
+    $\forall u,v \in O$ with ($\delta(u,t) \le \delta(v,t)$) \textbf{and} ($w\geq f(u)$ and $w\geq f(v)$), $\nexists$ ($ p(u)=F$ \textbf{and} $p(v)=T$).
+\end{center}
 \end{document} 
