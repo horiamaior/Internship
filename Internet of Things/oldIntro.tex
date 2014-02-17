@@ -1,0 +1,40 @@
+\documentclass[../main/IoT.tex]{subfiles}
+\begin{document}
+\section{Introduction and Related Work}\label{intro}
+\subsection{Self-governing, decentralized, extensible IoT, connected to a shared, variable power supply. Each thing is an object.}
+
+
+
+The Internet of Things (IoT) has been a highly discussed topic in he past 10 years within many areas of research, in all government, academic and industrial contexts because of its great prospect. It dates back to 1990's, precisely with the start of Industrial automation systems \cite{prasad2012energy}. Called ``... the third wave of the world information industry after the computer and the Internet ...'' \cite{IoT6150221}, IoT is a term used to describe a network of ``things''; smart objects (devices) located in the physical world, not traditionally thought of as computers (e.g., cars, household appliances). They are equipped with some sort of sensors, and are normally connected with the world surrounding them (e.g. human beings, other objects etc.), being able to exchange information with other objects using Internet protocols and technologies (TCP/IP, etc.).
+\subsection{Self-governing, decentralized, extensible IoT, connected to a shared, variable power supply. Each thing is an object.}
+
+hehe ...
+
+\subsection{Sharing needs and deadlines between objects, provide them with a general view of the system. Higher priority objects with small power consumption are more likely to get powered, achieving a happy IoT}
+One interesting aspect of the IoT is it's future impact on our daily life. Zorzi et al \cite{zorzi2010today} points out there is a first time opportunity to interact with the surrounding environments and to exchange information that previously was not available by simply looking at objects (devices). Apart from a direct interaction individual-machine (object), it will also have a indirect effect through object-to-object interaction. Objects were not used to communicate and be influenced by other objects. Prasad and Kumar \cite{prasad2012energy} describes this particular aspect of IoT as the advance version of Machine to Machine (M2M) communication, where objects are exchanging information between them without a human intervention.
+
+The application of IoT is vast, covering many areas of research. One of it's major application area is environment monitoring within Smart Cities (with Traffic Management research, Smart Parking etc.), Smart Environment (with Air Pollution research, Fire Detection research etc.) and so on. Liu and Zhou \cite{IoT6150221} finds the features of automatic and intelligent objects of IoT suitable for monitoring environment information.
+
+IoT will be useful in particular in resource-constrained systems (e.g. with smart grids). The naive approach to an Internet of Things would use a central controller or master node of some sort to oversee the activities of all ``things'' in the Internet of Things. However, considering a network that includes billions of objects interconnected, this has obvious drawbacks, not the least being scalability. Moreover, being composed of a single controlling unit, such system can carry at most one activity at any single moment.
+
+It is desirable that a ``thing'' govern its own actions while achieving global ``self'' properties (such as self-adaptivity, self-stabilization) in an Internet of Things that has to work with resource constraints (e.g., limited allowable peak electricity usage for a domestic or industrial system of many ``things''). Liu and Zhou \cite{IoT6150221} describes such property as ``autonomy Feature'' of objects, where objects have the ability to reason, negotiate, understand, adapt and learn from other objects or environments. Such an Internet of Things with self-governing ``things'' would not require a central controller, and addition or removal of ``things'' would be far easier.
+
+The specifications of our IoT system described above can be represented as a distributed system, where a central component is nonexisting. Instead, all objects communicate with every other object in the system in order to coordinate their actions. They also have a processing capability and self properties being responsible to control own actions.
+
+RW:
+\begin{itemize}
+  \item Maximum Demand
+  \item Total Demand
+  \item Demand Responsiveness
+  \item Demand Balance
+\end{itemize}
+\end{document} 
+
+
+When the available power resource exceeds the Total Demand of the system, all objects of the system shall be powered.
+
+\begin{center}
+    If $\gamma(t)\geq\sum\limits_{i=0}^{n-1} f(o_i) \implies \forall o_{i}\in O, p(o_{i} = T)$
+\end{center}
+
+\emph{Proof 1.1: } We can prove this by contradiction. Let us assume that there is such a case where $\gamma(t)\geq\sum\limits_{i=0}^{n-1} f(o_i)$, and $\exists o_{i}$ such that $p(o_{i}) = F$. This can happen only if $o_{i}$ is not the greatest priority object with the smallest power demand (therefore we skip lines $3-17$ of Algorithm \ref{algo4}). Object $o_{i}$ will receive a message with the remaining available power resource even if there is not enough to power to satisfy its demands (line $25$ and $29$). But that can only happen if the the total available power resource is not enough to satisfy all objects: $\gamma(t)$ cannot be both $\geq$ and $\leq$ than $\sum\limits_{i=0}^{n-1} f(o_i)$ in the same time, hence the contradiction. 
