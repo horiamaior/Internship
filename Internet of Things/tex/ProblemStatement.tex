@@ -172,7 +172,7 @@ Let $o_{i}$ the object running this code
     $w \gets \gamma(t)$
     \BlankLine
     \If{$f(o_{i})<=w$}{
-        \textbf{Power} object $o_{i}$
+        \textbf{Power} object $o_{i}$;
         $p(o_{i},t) \gets T$
         \BlankLine
         $w \gets w - f(o_{i})$
@@ -194,7 +194,7 @@ Let $o_{i}$ the object running this code
 \If{$(o_{i} = nextObj$)\textbf{ or }\newline
     $(\delta(o_{i}, t) = nextPriority$ \textbf{and} $f(o_{i})=Q_{i}(0))$}{
     \If{$f(o_{i})<=w$}{
-        \textbf{Power} object $o_{i}$
+        \textbf{Power} object $o_{i}$;
         $p(o_{i},t) \gets T$
         \BlankLine
         $w \gets w - f(o_{i})$\newline
@@ -214,12 +214,12 @@ Let $o_{i}$ the object running this code
 \end{algorithm}
 \DecMargin{1em}
 
-Algorithm \ref{algo4} is run by all objects in the system individually. The first part of the algorithm, lines $3-17$, will addresses to the object with the highest priority and the lowest power demand of the system (line $3$), this object having the first chance to get powered (in the case that the available power resource can satisfy its power demands - line $4-6$). From this point, the current object informs the next object with the same priority (if there is one - lines $13-16$), otherwise it broadcasts an information containing the new priority that shall receive power ($lines 9-12$). The second part of Algorithm \ref{algo4}, lines $18-31$ address all the other objects of the system, which are waiting for a message addressing them or their priority level. The smallest consumer of a priority category will always be powered first. Regardless if an object gets powered, it will always send a message to the next object or priority group. This enables small demand objects with small priority to get powered in the case of a high priority object cannot fulfil its demands with available power resource.
+Algorithm \ref{algo4} is run by all objects in the system individually. The first part of the algorithm, lines $3-17$, will addresses to the object with the highest priority and the lowest power demand of the system (line $3$), this object having the first chance to get powered (in the case that the available power resource can satisfy its power demands - line $4-6$). From this point, the current object informs the next object with the same priority (if there is one - lines $13-16$), otherwise it broadcasts an information containing the new priority that shall receive power (lines $9-12$). The second part of Algorithm \ref{algo4}, lines $18-31$ address all the other objects of the system, which are waiting for a message addressing them or their priority level. The smallest consumer of a priority category will always be powered first. Regardless if an object gets powered, it will always send a message to the next object or priority group. This enables small demand objects with small priority to get powered in the case of a high priority object cannot fulfil its demands with available power resource.
 
-The complexity of Algorithm \ref{algo4} in Big $O$ notation is $\mathcal{O}(n^2)$. The worse case scenario is when all objects have different priorities, and every object is broadcasting a message once ($n\times n$).
+The complexity of Algorithm \ref{algo4} is $\mathcal{O}(n^2)$. The worse case scenario is when all objects have different priorities, and every object is broadcasting a message once ($n\times n$).
 
 \subsection{Proofs of Correctness}
-In the previous subsections we developed a framework and created algorithms for describing our IoT model. In this subsection, we are identifying a set of properties of the system, and we are trying to prove the correctness of our proposed design by validating these properties.
+In the previous subsections we developed a framework and created algorithms that describe the behaviour of objects within the IoT model. In this subsection, we are identifying a set of properties of the model, and we are trying to prove the correctness of our proposed design by validating these properties.
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
 \begin{theorem}
@@ -227,10 +227,15 @@ In the previous subsections we developed a framework and created algorithms for 
 \end{theorem}
 
 \begin{lemma}\label{lemma1}
-  After running Algorithm \ref{algo4}, $\nexists o_{i}\in O, (p(o_{i}) = F)$ \textbf{and} $(f(o_{i})\leq w); $
+  After running Algorithm \ref{algo4}, $\nexists o_{i}\in O, (p(o_{i},t) = F)$ \textbf{and} $(f(o_{i})\leq w); $
 \end{lemma}
 
-\begin{proof} Let us assume that there is such a case where the Total Demand of the system cannot be satisfied by the available power resource and there exist an object starving while there is sufficient power to satisfy its demands. If the starving object $o_{i}$ is the highest priority object with the smallest power demand (between objects of the same priority), then it must have get powered (line $5,6$ in Algorithm \ref{algo4}). Otherwise, the starving object must have received a message from a higher priority object, and the check for enough power resource was done (line $19, 20$ in the same algorithm). Hence the contradiction.
+\begin{proof} Let us assume $\exists o_{i} \in O$ such that $p(i,t)=F$ while there is sufficient power to satisfy its demands, $(f(o_{i})\leq w)$. There are two cases to consider:
+
+\begin{itemize}
+  \item object $o_{i}$ is the highest priority object with the smallest power demand (between objects of the same priority); if $p(o_{i},t)=F$, following line $5,6$ in Algorithm \ref{algo4}, $(f(o_{i})\nleq w)$. Power demand $(f(o_{i})$ cannot be both $\leq\nleq w$. Hence the contradiction.
+  \item Otherwise, object must have received a message from a higher priority object; in this case the proof is similar; if $p(o_{i},t)=F$, following line $19, 20$ in the same Algorithm \ref{algo4}, $(f(o_{i})\nleq w)$. Power demand $(f(o_{i})$ cannot be both $\leq\nleq w$.
+\end{itemize}
 \end{proof}
 
 
@@ -238,10 +243,15 @@ In the previous subsections we developed a framework and created algorithms for 
 \emph{No Priority Inversion}. Guarantying that high priority objects get powered first, if possible.
 \end{theorem}
 \begin{lemma}\label{lemma2}
-    $\forall u,v \in O$ with ($\delta(u,t) \le \delta(v,t)$) \textbf{and} ($w\geq f(u)$ and $w\geq f(v)$), $\nexists$ ($ p(u)=T$ \textbf{and} $p(v)=F$).
+      $\nexists u,v \in O$ such that ($\delta(u,t) \le \delta(v,t)$) \textbf{and} ($w\geq f(u)$ and $w\geq f(v)$), ($ p(u,t)=T$ \textbf{and} $p(v,t)=F$).
 \end{lemma}
 
 \begin{proof}
-    If we assume that there exist a case where two objects $u, v \in O$, with priority of object $u \le$ priority of object $v$, and the power budget can satisfy one of the two objects power demands. $p(u) = T$ \textbf{and} $p(v) = F$ is not possible after running Algorithm \ref{algo4} by both objects, because the message flow (with the remaining power resource) starts from the highest priority object (line $3$) towards the lowest priority object (line $9-11$). Therefore the message with the remaining power resource must have first visited object $v$, therefore the contradiction.
+    If we assume $\exists u, v \in O$, such that priority of object $\delta(u,t) \le \delta(v,t)$ and the power budget can satisfy any of the two objects with power resource $w\geq f(u)$ and $w\geq f(v)$. We also assume that $p(u) = T$ \textbf{and} $p(v,t) = F$ after running Algorithm \ref{algo4} by both objects. There are two cases here:
+    \begin{itemize}
+      \item object $v$ is has the heights priority with the smallest power demand; following line $3-6$ in Algorithm \ref{algo4}, object $v$ gets powered first and $p(v,t) = T$. Object $v$ cannot be in the same time both powered $p(v,t) = T$ and not powered (the assumption of the proof) $p(v,t) = F$
+      \item neither of the objects $u,v$ are the have the highest priority with the smallest power demand; objects get powered when receiving a message dedicated for them. Message flow is from the highest priority object (line $3$) towards the lowest priority object (line $9-16$). If , $p(u) = T$ and $p(v) = F$, the message must have first visited object $u$. Therefore $\delta(u,t) \ge \delta(v,t)$. But the priority comparison cannot be both $\delta(u,t) \le \delta(v,t)$ and $\delta(u,t) \geq \delta(v,t)$ in the same time. Hence the contradiction.
+    \end{itemize}
+    because the message flow (with the remaining power resource) starts from the highest priority object (line $3$) towards the lowest priority object (line $9-11$). Therefore the message with the remaining power resource must have first visited object $v$, therefore the contradiction.
 \end{proof}
 \end{document} 
